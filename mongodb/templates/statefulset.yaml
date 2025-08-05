@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet  # 🧱 Manages stateful Pods with identity
+metadata:
+  name: mongodb
+  namespace: roboshop
+  labels:
+    component: mongodb
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    matchLabels:  # 🧩 Must match Pod template labels
+      component: mongodb
+      project: roboshop
+      tier: database
+  serviceName: "mongodb-headless"  # 🔗 Connects to headless service
+  replicas: 3  # 🔁 Number of MongoDB instances
+  template:
+    metadata:
+      labels:  # 🏷️ Labels for Pods
+        component: mongodb
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: mongodb
+        image: "{{ .Values.statefulset.imageURL }}:{{ .Values.statefulset.imageVersion }}"  # 📦 MongoDB Docker image
+        volumeMounts:
+        - name: mongodb-data
+          mountPath: /data/db  # 💾 Data location in container
+  volumeClaimTemplates:  # 📦 Template to create PVC per replica
+  - metadata:
+      name: mongodb-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]  # 📝 Access type
+      storageClassName: "roboshop-ebs"  # 🗂️ EBS-backed StorageClass
+      resources:
+        requests:
+          storage: 2Gi  # 📏 Disk size requested

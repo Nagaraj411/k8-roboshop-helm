@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service  # 🔧 Defines a Service
+metadata:
+  name: mongodb-headless  # 🏷️ Name of the headless service
+  namespace: roboshop  # 📂 Namespace where service runs
+  labels:  # 🏷️ Used for identifying and selecting
+    component: mongodb
+    project: roboshop
+    tier: database
+spec:
+  clusterIP: None  # 🚫 No clusterIP (makes it headless)
+  selector:  # 🔍 Used to find matching Pods
+    component: mongodb
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 27017  # 🌐 Port exposed by the service
+    targetPort: 27017  # 🎯 Port on the container
