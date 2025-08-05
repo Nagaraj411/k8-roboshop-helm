@@ -1,4 +1,3 @@
 statefulset:
   imageURL: nagaraj411/mongodb  # 📦 MongoDB Docker image URL
   imageVersion: v1  # 📦 MongoDB Docker image version
-
