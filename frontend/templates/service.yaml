@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: roboshop # Namespace for the service
+  labels:
+    component: frontend
+    project: roboshop
+    tier: web
+spec:
+  type: LoadBalancer # Service type
+  # This service will be exposed to the outside world
+  selector:
+    component: frontend
+    project: roboshop
+    tier: web
+  # This service will route traffic to the frontend pods
+  ports:
+  - protocol: TCP # Protocol for the service
+    port: 80 # frontend default service port
+    targetPort: 80 # container port

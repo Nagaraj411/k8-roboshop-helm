@@ -1,0 +1,6 @@
+deployment:
+  imageURL: nagaraj411/frontend  # 📦 Custom Frontend Docker image URL
+  imageVersion: v1  # 📦 Custom Frontend Docker image version
+hpa:
+  maxReplicas: 10
+  utilisation: 10

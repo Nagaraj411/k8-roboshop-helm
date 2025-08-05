@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: # Deployment metadata
+  name: frontend
+  namespace: roboshop # Namespace for the deployment
+  labels:
+    component: frontend
+    project: roboshop
+    tier: web
+    # This is the deployment for frontend
+spec:
+  replicas: 1 # Number of replicas
+  selector:
+    matchLabels:
+      component: frontend
+      project: roboshop
+      tier: web
+# this is pod definition
+  template:
+    metadata:
+      labels:
+        component: frontend
+        project: roboshop
+        tier: web
+    spec:
+      containers:
+        - name: frontend
+          image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion }}" # Frontend image
+          resources:                  # 🔹 Resource configuration
+            requests:
+              cpu: "50m"              # 🟡 Minimum CPU required
+              memory: "128Mi"         # 🟡 Minimum memory required
+            limits:
+              cpu: "100m"             # 🔴 Max CPU allowed
+              memory: "256Mi"         # 🔴 Max memory allowed
