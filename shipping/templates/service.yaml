@@ -1,0 +1,19 @@
+# ✅ Service: Exposes the Shipping deployment internally
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+  namespace: roboshop
+  labels:
+    component: shipping
+    project: roboshop
+    tier: app
+spec:
+  selector:                      # 🎯 Connect to matching pods
+    component: shipping
+    project: roboshop
+    tier: app
+  ports:
+  - protocol: TCP
+    port: 8080                   # 🌐 Service port
+    targetPort: 8080            # 🎯 Container port

@@ -1,0 +1,37 @@
+# ✅ Deployment: Manages the shipping application pods
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+  namespace: roboshop
+  labels:                         # 🏷️ Deployment-level labels
+    component: shipping
+    project: roboshop
+    tier: app
+spec:
+  replicas: 1                    # 🔁 Number of pod replicas
+  selector:                      # 🎯 Match these labels to manage pods
+    matchLabels:
+      component: shipping
+      project: roboshop
+      tier: app
+  template:                      # 🧱 Pod template definition
+    metadata:
+      labels:
+        component: shipping
+        project: roboshop
+        tier: app
+    spec:
+      containers:
+      - name: shipping           # 📦 Container name
+        image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion }}"   # 🖼️ Container image
+        resources:               # ⚙️ Resource requests & limits
+          requests:
+            cpu: "100m"          # 🟡 Minimum CPU required
+            memory: "256Mi"      # 🟡 Minimum memory required
+          limits:
+            cpu: "200m"          # 🔴 Max CPU allowed
+            memory: "512Mi"      # 🔴 Max memory allowed
+        envFrom:
+        - configMapRef:          # 🌐 Inject env variables from ConfigMap
+            name: shipping

@@ -1,0 +1,13 @@
+# ConfigMap: App Environment Variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: catalogue                    # 🔹 ConfigMap name
+  namespace: roboshop               # 🔹 Namespace for scope
+  labels:                           # 🔹 Labels for identification
+    component: catalogue
+    project: roboshop
+    tier: app
+data:                               # 🔹 Key-value pairs used in the app
+  MONGO: "true"
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"

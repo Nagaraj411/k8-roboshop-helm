@@ -1,0 +1,6 @@
+deployment:
+  imageURL: nagaraj411/payment  # 📦 Custom Payment Docker image URL
+  imageVersion: v1  # 📦 Custom Payment Docker image version
+hpa:
+  maxReplicas: 10
+  utilisation: 10  

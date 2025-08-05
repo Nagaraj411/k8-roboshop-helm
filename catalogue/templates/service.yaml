@@ -1,0 +1,19 @@
+# Service: Expose the Deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue                   # 🔹 Service name
+  namespace: roboshop
+  labels:
+    component: catalogue
+    project: roboshop
+    tier: app
+spec:
+  selector:                         # 🔍 Matches pods by label
+    component: catalogue
+    project: roboshop
+    tier: app
+  ports:
+    - protocol: TCP                 # 🔌 Protocol
+      port: 8080                    # 🌐 Service port
+      targetPort: 8080             # 🎯 Container port

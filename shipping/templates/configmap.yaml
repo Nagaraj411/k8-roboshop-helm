@@ -1,0 +1,13 @@
+# ✅ ConfigMap: Environment variables for the Shipping service
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipping
+  namespace: roboshop
+  labels:
+    component: shipping
+    project: roboshop
+    tier: app
+data:
+  CART_ENDPOINT: "cart:8080"     # 🛒 Cart service endpoint
+  DB_HOST: "mysql"               # 💾 MySQL database host

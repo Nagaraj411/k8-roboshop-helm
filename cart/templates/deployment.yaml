@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: # Deployment metadata
+  name: cart
+  namespace: roboshop # Namespace for the deployment
+  labels:
+    component: cart
+    project: roboshop
+    tier: app
+    # This is the deployment for cart
+spec:
+  replicas: 1 # Number of replicas
+  selector:
+    matchLabels:
+      component: cart
+      project: roboshop
+      tier: app
+# this is pod definition
+  template:
+    metadata:
+      labels:
+        component: cart
+        project: roboshop
+        tier: app
+    spec:
+      containers:
+        - name: cart
+          image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion }}" # Cart image
+          resources:                  # 🔹 Resource configuration
+            requests:
+              cpu: "50m"              # 🟡 Minimum CPU required
+              memory: "128Mi"         # 🟡 Minimum memory required
+            limits:
+              cpu: "100m"             # 🔴 Max CPU allowed
+              memory: "256Mi"         # 🔴 Max memory allowed
+          envFrom:
+          - configMapRef:
+              name: cart # Reference to the ConfigMap

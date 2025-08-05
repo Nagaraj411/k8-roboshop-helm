@@ -1,0 +1,20 @@
+# ✅ HPA (HorizontalPodAutoscaler): Scales pods based on CPU
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: shipping
+  namespace: roboshop
+spec:
+  scaleTargetRef:               # 🎯 Target Deployment
+    apiVersion: apps/v1
+    kind: Deployment
+    name: shipping
+  minReplicas: 1                # 🔽 Minimum pods
+  maxReplicas: {{ .Values.hpa.maxReplicas }}               # 🔼 Maximum pods
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization       # 📊 Based on CPU usage
+        averageUtilization: {{ .Values.hpa.utilisation }}  # 🎯 Target 10% CPU usage

@@ -1,0 +1,6 @@
+deployment:
+  imageURL: nagaraj411/shipping  # 📦 Custom Shipping Docker image URL
+  imageVersion: v1  # 📦 Custom Shipping Docker image version
+hpa:
+  maxReplicas: 10 # 🔼 Maximum pods
+  utilisation: 10 # 🎯 Target 10% CPU usage

@@ -1,0 +1,6 @@
+deployment:
+  imageURL: "nagaraj411/catalogue"
+  imageVersion: "v1"
+hpa:
+  maxReplicas: 10
+  utilisation: 75  # Percentage of CPU utilization to trigger scaling

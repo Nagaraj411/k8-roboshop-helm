@@ -1,0 +1,20 @@
+# Horizontal Pod Autoscaler: Scale Pods Automatically
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: catalogue                   # 🔹 HPA name
+  namespace: roboshop
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: catalogue                 # 🎯 Target: catalogue deployment
+  minReplicas: 1                    # 🟢 Minimum pods
+  maxReplicas: {{ .Values.hpa.maxReplicas }}                   # 🔺 Maximum pods
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu                     # 📊 Monitored metric
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.hpa.utilisation }}     # 📈 Scale up if CPU > 10%

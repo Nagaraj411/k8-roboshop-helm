@@ -1,0 +1,6 @@
+deployment:
+  imageURL: nagaraj411/cart  # 📦 Custom Cart Docker image URL
+  imageVersion: v1  # 📦 Custom Cart Docker image version
+hpa:
+  maxReplicas: 10
+  utilisation: 10

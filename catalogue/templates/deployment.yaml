@@ -1,0 +1,39 @@
+# Deployment: Create & Manage Pods
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue                   # 🔹 Deployment name
+  namespace: roboshop
+  labels:                           # 🔹 Deployment labels
+    component: catalogue
+    project: roboshop
+    tier: app
+spec:
+  replicas: 1                       # 🔹 Initial number of pod replicas
+  # These are the labels replica set use to create pod replicas, this should match pod labels
+  selector:
+    matchLabels:                    # 🔹 Matches pods with same labels
+      component: catalogue
+      project: roboshop
+      tier: app
+  # This is pod definition      
+  template:
+    metadata:
+      labels:                       # 🔹 Pod labels
+        component: catalogue
+        project: roboshop
+        tier: app
+    spec:
+      containers:
+      - name: catalogue             # 🔹 Container name
+        image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion }}"   # 📦 Custom container image
+        resources:                  # 🔹 Resource configuration
+          requests:
+            cpu: "50m"              # 🟡 Minimum CPU required
+            memory: "128Mi"         # 🟡 Minimum memory required
+          limits:
+            cpu: "100m"             # 🔴 Max CPU allowed
+            memory: "256Mi"         # 🔴 Max memory allowed
+        envFrom:
+        - configMapRef:
+            name: catalogue         # 🔗 Inject env from ConfigMap
