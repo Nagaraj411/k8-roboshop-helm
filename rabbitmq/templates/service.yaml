@@ -1,0 +1,19 @@
+# 📡 ClusterIP Service for rabbitmq access
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq                       # 📡 Standard ClusterIP service
+  namespace: roboshop
+  labels:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 5672                      # 🚪 Port exposed to clients
+    targetPort: 5672                # 🎯 Container’s internal port

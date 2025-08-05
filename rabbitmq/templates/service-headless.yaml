@@ -1,0 +1,20 @@
+# 🌐 Headless Service for rabbitmq (StatefulSet DNS Discovery)
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-headless              # 🌐 Headless service name
+  namespace: roboshop               # 🧭 Namespace: roboshop
+  labels:
+    component: rabbitmq                # 🧩 Component: rabbitmq
+    project: roboshop               # 📦 Project label
+    tier: database                  # 🗂️ Tier: Database
+spec:
+  clusterIP: None                   # ❌ No ClusterIP → Headless for stable DNS
+  selector:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 5672                      # 🚪 rabbitmq default port (Service)
+    targetPort: 5672                # 🎯 Matches container port
