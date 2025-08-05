@@ -1,0 +1,20 @@
+# 🌐 Headless Service for Redis (StatefulSet DNS Discovery)
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-headless              # 🌐 Headless service name
+  namespace: roboshop               # 🧭 Namespace: roboshop
+  labels:
+    component: redis                # 🧩 Component: Redis
+    project: roboshop               # 📦 Project label
+    tier: database                  # 🗂️ Tier: Database
+spec:
+  clusterIP: None                   # ❌ No ClusterIP → Headless for stable DNS
+  selector:
+    component: redis
+    project: roboshop
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 6379                      # 🚪 Redis default port (Service)
+    targetPort: 6379                # 🎯 Matches container port

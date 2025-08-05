@@ -1,0 +1,3 @@
+statefulset:
+  imageURL: nagaraj411/mysql  # 📦 Custom MySQL Docker image URL
+  imageVersion: v1  # 📦 Custom MySQL Docker image version

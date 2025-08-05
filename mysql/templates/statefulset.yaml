@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: roboshop
+  labels:
+    component: mysql
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      component: mysql
+      project: roboshop
+      tier: database               # 🧬 Matches pod labels
+  serviceName: "mysql-headless"    # 🔁 Uses headless service for stable DNS
+  replicas: 2                      # 🔁 Two pods will be created
+  template:
+    metadata:
+      labels:
+        component: mysql
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: mysql
+        image: "{{ .Values.statefulset.imageURL}}:{{ .Values.statefulset.imageVersion }}"  # 🐳 Custom MySQL image
+        envFrom:
+        - secretRef:
+            name: mysql            # 🔐 Inject password from secret
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql  # 📂 Mount volume for data
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data             # 📦 Volume claim per replica
+    spec:
+      accessModes: [ "ReadWriteOnce" ]  # 📥 Only one pod can write
+      storageClassName: "roboshop-ebs"  # 🧱 Use EBS dynamic provisioning
+      resources:
+        requests:
+          storage: 2Gi             # 💾 Each pod gets 2GB

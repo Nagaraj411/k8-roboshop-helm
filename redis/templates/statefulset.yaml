@@ -1,0 +1,40 @@
+# 🏗️ Redis StatefulSet with EBS-based Persistent Volumes
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: roboshop
+  labels:
+    component: redis
+    project: roboshop
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      component: redis
+      project: roboshop
+      tier: database               # 🧬 Must match pod template labels
+  serviceName: "redis-headless"    # 🔁 Required for stable network ID
+  replicas: 2                      # 🧍🧍 Creates 2 Redis pods
+  template:
+    metadata:
+      labels:
+        component: redis
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: redis
+        image: "{{ .Values.statefulset.imageURL}}:{{ .Values.statefulset.imageVersion }}"           # 🐳 Redis official image
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data         # 💾 Mount Redis data directory
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data             # 📦 PVC name template
+    spec:
+      accessModes: [ "ReadWriteOnce" ]  # ✍️ Single node write access
+      storageClassName: "roboshop-ebs"  # 📀 EBS-backed storage class
+      resources:
+        requests:
+          storage: 2Gi             # 💽 2Gi per Redis pod
