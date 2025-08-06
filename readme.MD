@@ -2,6 +2,16 @@
 
 This repository contains **Helm charts** to deploy **Roboshop** microservices on a Kubernetes cluster.
 
+✅ Helm-based microservices setup
+
+📦 Project structure
+
+🧪 Deployment steps
+
+🧭 Kubernetes namespace usage
+
+🗃️ EBS StorageClass YAML (ebs-sc.yaml) info
+
 ---
 
 ## 🔧 What's Included?
