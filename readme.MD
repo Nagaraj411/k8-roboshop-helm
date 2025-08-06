@@ -34,6 +34,8 @@ Each directory includes:
 
 ```bash
 helm upgrade --install <Server name> .
+helm list
+kubectl get pods
 
 ### ✅ This version is:
 - Shorter and cleaner
