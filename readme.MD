@@ -33,19 +33,7 @@ Each directory includes:
 ## 📦 Install Services (Using Helm)
 
 ```bash
-helm install mongodb ./mongodb
-helm install redis ./redis
-helm install mysql ./mysql
-helm install rabbitmq ./rabbitmq
-helm install catalogue ./catalogue
-helm install user ./user
-helm install cart ./cart
-helm install shipping ./shipping
-helm install payment ./payment
-helm install frontend ./frontend
-
-
----
+helm upgrade --install <Server name> .
 
 ### ✅ This version is:
 - Shorter and cleaner
