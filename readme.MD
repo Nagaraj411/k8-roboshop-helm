@@ -22,7 +22,7 @@ This repository contains **Helm charts** to deploy **Roboshop** microservices on
 Each microservice is packaged into its own Helm chart for modular, reusable deployment.
 
 | 🔢 Service      | 🧠 Purpose                          |
-|----------------|-------------------------------------|
+|------------------|-------------------------------------|
 | 🗂️ MongoDB      | NoSQL DB for users & products       |
 | 🧠 MySQL        | Shipping database                   |
 | ⚡ Redis        | In-memory DB for cart               |
