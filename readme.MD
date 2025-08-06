@@ -8,9 +8,12 @@ This repository contains **Helm charts** to deploy **Roboshop** microservices on
 
 🧪 Deployment steps
 
+🗂️ Install CSI Drivers
+
 🧭 Kubernetes namespace usage
 
 🗃️ EBS StorageClass YAML (ebs-sc.yaml) info
+
 
 ---
 
